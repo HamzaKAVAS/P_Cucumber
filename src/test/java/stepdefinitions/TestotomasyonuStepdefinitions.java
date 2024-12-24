@@ -3,6 +3,7 @@ package stepdefinitions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
 import pages.TestotomasyonuPage;
@@ -131,5 +132,24 @@ public class TestotomasyonuStepdefinitions {
     @Then("sisteme giris yapamadigini test eder")
     public void sistemeGirisYapamadiginiTestEder() {
         Assertions.assertTrue(testotomasyonuPage.loginButonu.isDisplayed());
+    }
+
+    @Then("arama sonucunda {string} veya daha fazla urun bulunabildigini test eder")
+    public void aramaSonucundaVeyaDahaFazlaUrunBulunabildiginiTestEder(String belirlenenMiktarStr) {
+        String actualSonucYazisi = testotomasyonuPage.aramaSonucuElementi.getText();
+        String actualSonucYazisiStr = actualSonucYazisi.replaceAll("\\D", "");
+        int actualSonucSayisi = Integer.parseInt(actualSonucYazisiStr);
+        int expectedMinSonucSayisi = Integer.parseInt(belirlenenMiktarStr);
+        Assertions.assertTrue(actualSonucSayisi >= expectedMinSonucSayisi);
+    }
+
+    @When("email olarak listede verilen {string} girer")
+    public void emailOlarakListedeVerilenGirer(String verilenEmail) {
+        testotomasyonuPage.emailKutusu.sendKeys(verilenEmail);
+    }
+
+    @And("password olarak listede verilen {string} girer")
+    public void passwordOlarakListedeVerilenGirer(String verilenPassword) {
+        testotomasyonuPage.passwordKutusu.sendKeys(verilenPassword);
     }
 }

@@ -4,6 +4,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
 import pages.TestotomasyonuPage;
@@ -11,9 +14,19 @@ import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class TestotomasyonuStepdefinitions {
 
     TestotomasyonuPage testotomasyonuPage = new TestotomasyonuPage();
+    String satirdakiUrunIsmi;
+    double satirdaBulunacakMinUrunMiktari;
+    double actualSonucSayisi;
+    Sheet calisanSayfa;
+    Workbook workbook;
 
     @Given("kullanici testotomasyonu anasayfaya gider")
     public void kullaniciTestotomasyonuAnasayfayaGider() {
@@ -151,5 +164,41 @@ public class TestotomasyonuStepdefinitions {
     @And("password olarak listede verilen {string} girer")
     public void passwordOlarakListedeVerilenGirer(String verilenPassword) {
         testotomasyonuPage.passwordKutusu.sendKeys(verilenPassword);
+    }
+
+    @And("urun excelindeki {string} daki urunun min. miktarini ve urun ismini kaydeder")
+    public void urunExcelindekiDakiUrununMinMiktariniVeUrunIsminiKaydeder(String excelSatirNoStr) throws IOException {
+        String dosyaYolu = "src/test/resources/urunListesi.xlsx";
+        FileInputStream fileInputStream = new FileInputStream(dosyaYolu);
+        workbook = WorkbookFactory.create(fileInputStream);
+        calisanSayfa = workbook.getSheet("Sheet1");
+
+        int satirNo = Integer.parseInt(excelSatirNoStr); // 2
+        satirdakiUrunIsmi = calisanSayfa.getRow(satirNo-1).getCell(0).getStringCellValue();
+        satirdaBulunacakMinUrunMiktari = calisanSayfa.getRow(satirNo-1).getCell(1).getNumericCellValue();
+    }
+
+    @And("urun ismini testotomasyonu sayfasinda arar ve sonuc sayisini kaydeder")
+    public void urunIsminiTestotomasyonuSayfasindaArarVeSonucSayisiniKaydeder() {
+        testotomasyonuPage.aramaKutusu.sendKeys(satirdakiUrunIsmi + Keys.ENTER);
+        String actualUrunSonucYazisi = testotomasyonuPage.aramaSonucuElementi.getText();
+        String actualUrunSonucSayisiStr = actualUrunSonucYazisi.replaceAll("\\D","");
+        actualSonucSayisi = Double.parseDouble(actualUrunSonucSayisiStr);
+    }
+
+    @Then("bulunan urun sayisinin {string} da verilen min. miktardan fazla oldugunu test eder")
+    public void bulunanUrunSayisininDaVerilenMinMiktardanFazlaOldugunuTestEder(String satirNoStr) {
+        Assertions.assertTrue( actualSonucSayisi >= satirdaBulunacakMinUrunMiktari);
+    }
+
+    @And("bulunan sonuc sayisini excel'de {string} da ki {int}.sutuna yazdirir")
+    public void bulunanSonucSayisiniExcelDeDaKiSutunaYazdirir(String satirNoStr, int sutunNo) throws IOException {
+        int satirNo = Integer.parseInt(satirNoStr);
+        calisanSayfa.getRow(satirNo-1).createCell(sutunNo-1).setCellValue(actualSonucSayisi);
+        String excelDosyaYolu = "src/test/resources/urunListesi.xlsx";
+        FileOutputStream fileOutputStream = new FileOutputStream(excelDosyaYolu);
+        workbook.write(fileOutputStream);
+        fileOutputStream.close();
+        workbook.close();
     }
 }

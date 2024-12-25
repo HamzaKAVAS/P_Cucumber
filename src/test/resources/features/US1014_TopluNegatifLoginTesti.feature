@@ -1,5 +1,5 @@
 Feature: US1014 Kullanıcı verilen yanlış bilgilerle sisteme giremez
-  @wip
+
   Scenario Outline: TC20 kullanıcı yanlış bilgilerle sisteme girememeli
 
     Given kullanici test data dosyasinda verilen "toUrl" anasayfaya gider

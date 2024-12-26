@@ -1,5 +1,5 @@
 Feature: US1015 Kullanıcı excel olarak verilen ürünlerle arama testi yapar
-  @wip
+
   Scenario Outline: TC21 Kullanıcı exceldeki ürünleri istenen miktarda bulabilmeli
     
     Given kullanici test data dosyasinda verilen "toUrl" anasayfaya gider

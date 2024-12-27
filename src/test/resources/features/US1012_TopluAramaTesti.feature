@@ -6,7 +6,7 @@ Feature: US1012 Kullanıcı liste olarak verilen ürünleri aratır
     And arama kutusuna "<aratilacakKelime>" yazip aratir
     Then arama sonucunda urun bulunabildigini test eder
     And senkronizasyon icin 1 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir
 
     Examples:
     |aratilacakKelime|

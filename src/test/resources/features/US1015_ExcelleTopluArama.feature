@@ -7,7 +7,7 @@ Feature: US1015 Kullanıcı excel olarak verilen ürünlerle arama testi yapar
     And urun ismini testotomasyonu sayfasinda arar ve sonuc sayisini kaydeder
     Then bulunan urun sayisinin "<istenenSatir>" da verilen min. miktardan fazla oldugunu test eder
     And bulunan sonuc sayisini excel'de "<istenenSatir>" da ki 3.sutuna yazdirir
-    And sayfayi kapatir
+    #And sayfayi kapatir
 
     Examples:
       | istenenSatir |

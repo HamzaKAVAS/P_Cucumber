@@ -8,4 +8,4 @@ Feature: US1004 Kullanıcı istediği ürünü aratır ve test eder
     And ilk urune tiklar
     Then acilan sayfada urun isminde case sensitive olmadan "dress" bulundugunu test eder
     And senkronizasyon icin 2 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir

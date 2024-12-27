@@ -8,7 +8,7 @@ Feature: Kullanici login bilgileri ile giriş yapmayı dener
     Then kullanici sifre olarak "<password>" girer
     Then kullanici kayit sayfasindaki login butonuna tiklar
     Then kullanici giris yapılamadigini dogrular
-    Then sayfayi kapatir
+    #Then sayfayi kapatir
 
     Examples:
       | username | password |

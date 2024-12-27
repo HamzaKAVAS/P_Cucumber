@@ -6,7 +6,7 @@ Feature: US1013 Kullanıcı belirlenen miktarda ürün bulabilmeli
     And arama kutusuna "<aranacakKelime>" yazip aratir
     Then arama sonucunda "<belirlenenMiktar>" veya daha fazla urun bulunabildigini test eder
     And senkronizasyon icin 2 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir
 
     Examples:
     |aranacakKelime|belirlenenMiktar|

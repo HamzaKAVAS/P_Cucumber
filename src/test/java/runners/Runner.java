@@ -16,6 +16,7 @@ import org.junit.platform.suite.api.Suite;
 @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "pretty, html:target/cucumber-report/HtmlReport.html")
                    // HtmlReport ismini degistirirsek birden fazla htmlreports dosyası oluşur
 //@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "pretty, json:target/json-reports/cucumberRapor.json")
+                   // Bunu açmazsak gelişmiş raporlama alamazsın ve bu raporu terminalden çalıştırmalısın
 //@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME,value = "pretty, junit:target/xml-report/cucumber.xml")
 
 public class Runner {

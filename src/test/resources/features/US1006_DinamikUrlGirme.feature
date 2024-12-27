@@ -5,4 +5,4 @@ Feature: US1006 Kullanıcı Url'i dinamik olarak girer
     Given kullanici test data dosyasinda verilen "zeroUrl" anasayfaya gider
     Then url'in test data dosyasinda verilen "zeroUrl" ile ayni oldugunu test eder
     And senkronizasyon icin 5 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir

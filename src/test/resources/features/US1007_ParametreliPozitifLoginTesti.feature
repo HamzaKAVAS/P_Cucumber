@@ -10,4 +10,4 @@ Feature: US1007 Kullanıcı geçerli bilgilerle sisteme giriş yapar
     Then basarili giris yapilabildigini test eder
     And senkronizasyon icin 3 saniye bekler
     And logout butonuna basar
-    And sayfayi kapatir
+    #And sayfayi kapatir

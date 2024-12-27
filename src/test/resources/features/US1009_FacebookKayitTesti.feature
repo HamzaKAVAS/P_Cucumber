@@ -9,4 +9,4 @@ Feature: US1009 Kullanıcı fake bilgilerle kayıt olusturmayı dener
     And senkronizasyon icin 2 saniye bekler
     And facebook kayit ol tusuna basar
     And senkronizasyon icin 2 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir

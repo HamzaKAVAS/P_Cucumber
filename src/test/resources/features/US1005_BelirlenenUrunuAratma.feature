@@ -7,4 +7,4 @@ Feature: US1005 Kullanıcı belirlenen kelimeyi aratır
     Then arama sonucunda urun bulunabildigini test eder
     And ilk urune tiklar
     Then acilan sayfada urun isminde case sensitive olmadan test data dosyasindaki belirlenen kelimenin bulundugunu test eder
-    And sayfayi kapatir
+    #And sayfayi kapatir

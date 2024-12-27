@@ -9,7 +9,7 @@ Feature: US1014 Kullanıcı verilen yanlış bilgilerle sisteme giremez
     Then signIn butonuna basar
     And sisteme giris yapamadigini test eder
     And senkronizasyon icin 1 saniye bekler
-    Then sayfayi kapatir
+    #Then sayfayi kapatir
 
     Examples:
       |verilenEmail           |verilenPassword    |

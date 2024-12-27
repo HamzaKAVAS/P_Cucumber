@@ -10,7 +10,7 @@ Feature: US1008 Kullanıcı yanlış bilgilerle giriş yapamaz
     And signIn butonuna basar
     Then sisteme giris yapamadigini test eder
     And senkronizasyon icin 3 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir
 
   Scenario: TC13 Kullanıcı yanlış email ile giriş yapamamalı
 
@@ -21,7 +21,7 @@ Feature: US1008 Kullanıcı yanlış bilgilerle giriş yapamaz
     And signIn butonuna basar
     Then sisteme giris yapamadigini test eder
     And senkronizasyon icin 3 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir
 
   Scenario: TC14 Kullanıcı yanlış password ve yanlıs email ile giriş yapamamalı
 
@@ -32,4 +32,4 @@ Feature: US1008 Kullanıcı yanlış bilgilerle giriş yapamaz
     And signIn butonuna basar
     Then sisteme giris yapamadigini test eder
     And senkronizasyon icin 3 saniye bekler
-    And sayfayi kapatir
+    #And sayfayi kapatir

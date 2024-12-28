@@ -9,12 +9,16 @@ import org.junit.jupiter.api.Assertions;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ExcelStepdefinitions {
 
     Workbook workbook;
     Sheet sayfa1;
     String actualHucreData;
+    Map<String,Map<String,String>> ulkelerMap;
 
     @Given("kullanici baskentler exceline ulasir")
     public void kullanici_baskentler_exceline_ulasir() throws IOException {
@@ -52,28 +56,45 @@ public class ExcelStepdefinitions {
     }
 
     @Then("excelde kayitli ulke sayisinin {int} oldugunu test eder")
-    public void excelde_kayitli_ulke_sayisinin_oldugunu_test_eder(Integer int1) {
-
+    public void excelde_kayitli_ulke_sayisinin_oldugunu_test_eder(Integer ulkeIsmiSayisi) {
+        Assertions.assertEquals(ulkeIsmiSayisi,sayfa1.getLastRowNum()+1-1);
     }
 
     @Then("excelde kullanilan fiziki satir sayisinin {int} oldugunu test eder")
-    public void excelde_kullanilan_fiziki_satir_sayisinin_oldugunu_test_eder(Integer int1) {
-
+    public void excelde_kullanilan_fiziki_satir_sayisinin_oldugunu_test_eder(Integer satirNo) {
+        Assertions.assertEquals(satirNo,sayfa1.getPhysicalNumberOfRows());
     }
 
     @Then("Tum bilgileri map olarak kaydedip")
     public void tum_bilgileri_map_olarak_kaydedip() {
+        ulkelerMap = new TreeMap<>();
+        Map<String,String> valueMap;
+        for (int i = 1; i < sayfa1.getLastRowNum() ; i++) {
+            valueMap = new TreeMap<>();
+            valueMap.put("ingilizceUlkeIsmi",sayfa1.getRow(i).getCell(1).getStringCellValue());
+            valueMap.put("turkceUlkeIsmi",sayfa1.getRow(i).getCell(2).getStringCellValue());
+            valueMap.put("turkceBaskentIsmi",sayfa1.getRow(i).getCell(3).getStringCellValue());
 
+            ulkelerMap.put(sayfa1.getRow(i).getCell(1).getStringCellValue(),valueMap);
+        }
     }
 
     @Then("Ingilizce baskent {string} olan ulkenin tum bilgilerini yazdirir")
-    public void ingilizce_baskent_olan_ulkenin_tum_bilgilerini_yazdirir(String string) {
-
+    public void ingilizce_baskent_olan_ulkenin_tum_bilgilerini_yazdirir(String verilenIngilizceBaskentIsmi) {
+        System.out.println(ulkelerMap.get(verilenIngilizceBaskentIsmi));
     }
 
     @Then("mapi kullanarak Turkce ismi {string} olan bir ulke bulundugunu test eder")
-    public void mapi_kullanarak_turkce_ismi_olan_bir_ulke_bulundugunu_test_eder(String string) {
-
+    public void mapi_kullanarak_turkce_ismi_olan_bir_ulke_bulundugunu_test_eder(String verilenTurkceUlkeIsmi) {
+        Collection<Map<String,String>> valueCollection = ulkelerMap.values();
+        boolean arananUlkeVarMi = false;
+        for (Map<String,String> eachMapValue : valueCollection){
+            if (eachMapValue.get("turkceUlkeIsmi").equals(verilenTurkceUlkeIsmi)){
+                arananUlkeVarMi = true;
+                break;
+            }
+        }
+        Assertions.assertTrue(arananUlkeVarMi);
     }
 
 }
